@@ -4,9 +4,8 @@ class CreateSites < ActiveRecord::Migration
       t.string :domain
       t.string :name
       t.string :rss
-      t.string :title_xpath
-      t.string :img_thumb_xpath
-      t.string :img_link_xpath
+      t.string :title_css
+      t.string :img_css
 
       t.timestamps
     end

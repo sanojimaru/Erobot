@@ -27,22 +27,23 @@ ActiveRecord::Schema.define(:version => 20130201100313) do
 
   create_table "pages", :force => true do |t|
     t.integer  "site_id",    :null => false
+    t.string   "url"
     t.string   "title"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   add_index "pages", ["site_id"], :name => "index_pages_on_site_id"
+  add_index "pages", ["url"], :name => "index_pages_on_url", :unique => true
 
   create_table "sites", :force => true do |t|
     t.string   "domain"
     t.string   "name"
     t.string   "rss"
-    t.string   "title_xpath"
-    t.string   "img_thumb_xpath"
-    t.string   "img_link_xpath"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.string   "title_css"
+    t.string   "img_css"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sites", ["domain"], :name => "index_sites_on_domain", :unique => true
