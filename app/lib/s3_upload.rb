@@ -19,12 +19,17 @@ class S3Upload
   def put(local_file, prefix = nil)
     base_name = File.basename local_file
     mime_type = MIME::Types.type_for local_file
+    upload_file_path = File.expand_path prefix, base_name
+
+
     AWS::S3::S3Object.store(
-      "#{prefix}#{base_name}",
+      upload_file_path,
       File.open(local_file),
       @bucket,
       :content_type => mime_type.to_s,
       :access => :public_read
     )
+
+    "#{AWS::S3::DEFAULT_HOST}/#{upload_file_path}"
   end
 end

@@ -1,4 +1,5 @@
 require "bundler/capistrano"
+require "whenever/capistrano"
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
@@ -19,4 +20,9 @@ namespace :deploy do
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
+end
+
+
+every 6.hours do
+  runner "Spider.run"
 end
