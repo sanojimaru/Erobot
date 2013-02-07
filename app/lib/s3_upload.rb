@@ -19,8 +19,7 @@ class S3Upload
   def put(local_file, prefix = nil)
     base_name = File.basename local_file
     mime_type = MIME::Types.type_for local_file
-    upload_file_path = File.expand_path prefix, base_name
-
+    upload_file_path = File.join prefix, base_name
 
     AWS::S3::S3Object.store(
       upload_file_path,
