@@ -3,9 +3,13 @@ require 'uri'
 require 'rss'
 require 'nokogiri'
 require 'charlock_holmes'
+require 'fileutils'
 
 class Spider
   def self.run
+    downloader = Download.new
+    s3uploader = S3Upload.new
+
     Site.all.each do |site|
       rss_body = open(site.rss).read
       detection = CharlockHolmes::EncodingDetector.detect(rss_body)
@@ -38,6 +42,13 @@ class Spider
           }
 
           puts param
+
+          tmp_image_dir = Rails.root.join('tmp', 'images')
+          FileUtils.mkdir tmp_image_dir unless File.exists?(tmp_image_dir)
+
+          filename = downloader.get param[:url], tmp_image_dir
+          s3uploader.put filename, [site.id, page.id].join('/')
+          FileUtils.rm filename
 
           next unless param[:url] =~ /\.(jpg|jpeg|gif|png)$/
           begin

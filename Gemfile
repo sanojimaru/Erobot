@@ -14,6 +14,7 @@ gem 'capistrano'
 gem 'nokogiri'
 gem 'charlock_holmes'
 gem 'whenever', require: false
+gem 'aws-s3'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
