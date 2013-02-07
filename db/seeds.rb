@@ -7,6 +7,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+AdminUser.find_or_create_by_email! 'sanojimaru@gmail.com', password: '1qazxsw23edcvfr4'
+
 ero_sites = [
   {
     name: 'ピンクちゃんねる',
