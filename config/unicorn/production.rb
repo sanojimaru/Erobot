@@ -1,6 +1,6 @@
 # Set your full path to application.
-app_path = "/var/www/ToyoBeverage/current"
-shared_path = "/var/www/ToyoBeverage/shared"
+app_path = "/var/www/Erobot/current"
+shared_path = "/var/www/Erobot/shared"
 
 
 # Set unicorn options
