@@ -1,3 +1,8 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+$ ->
+  $.getJSON '/pages', (data) ->
+    source = $("#tmpl_page_thumb").html()
+    template = Handlebars.compile(source)
+
+    for page in data
+      $('#page_thumbnails').append template(page)
+    $('#page_thumbnails .thumbnail img:last').load -> $(this).trigger 'load:all'

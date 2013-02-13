@@ -48,6 +48,9 @@ GEM
       mime-types
       xml-simple
     bcrypt-ruby (3.0.1)
+    bootstrap-sass-rails (2.2.2.0)
+      railties (>= 3.1.0)
+      sass-rails (>= 3.1.0)
     bourbon (3.0.1)
       sass (>= 3.2.0)
       thor
@@ -116,6 +119,8 @@ GEM
       net-ssh (>= 1.99.1)
     nokogiri (1.5.6)
     orm_adapter (0.4.0)
+    pjax_rails (0.3.4)
+      jquery-rails
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
@@ -187,12 +192,15 @@ PLATFORMS
 DEPENDENCIES
   activeadmin
   aws-s3
+  bootstrap-sass-rails
   capistrano
   charlock_holmes
   coffee-rails (~> 3.2.1)
   jquery-rails
+  kaminari
   mysql2
   nokogiri
+  pjax_rails
   rails (= 3.2.11)
   sass-rails (~> 3.2.3)
   therubyracer

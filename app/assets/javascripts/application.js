@@ -12,4 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require jquery.pjax
+//= require jquery.wookmark.min
+//= require handlebars
+//= require ext.handlebars
+//= require twitter/bootstrap
+//= require_tree ./application
