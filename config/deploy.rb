@@ -49,5 +49,5 @@ namespace :deploy do
 end
 
 require "capistrano-unicorn"
-after 'deploy:restart', 'unicorn:restart'
+after 'deploy:restart', 'unicorn:reload'
 after 'deploy:create_symlink', 'deploy:create_directory'
