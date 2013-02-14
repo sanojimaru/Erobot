@@ -8,7 +8,7 @@
             <p class="sitename"><%= link_to page.site.name, page.site.domain %></p>
           </div>
           <ul>
-            <% page.images.first(10).each do |image| %>
+            <% page.images.each do |image| %>
               <li><%= link_to image_tag(image.thumb_url, alt: image.content), image.url %></li>
             <% end %>
           </ul>
