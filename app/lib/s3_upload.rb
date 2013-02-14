@@ -11,9 +11,7 @@ class S3Upload
       :access_key_id => ACCESS_KEY_ID,
       :secret_access_key => SECRET_ACCESS_KEY
     )
-
-
-    @bucket = "erobot-production"
+    @bucket = Rails.env == 'production' ? "erobot-production" : "erobot-development"
   end
 
   def put(local_file, prefix = nil)
@@ -25,7 +23,7 @@ class S3Upload
       upload_file_path,
       File.open(local_file),
       @bucket,
-      :content_type => mime_type.to_s,
+      :content_type => mime_type.first.to_s,
       :access => :public_read
     )
 

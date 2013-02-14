@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require pjax
+//= require jquery.pjax
 //= require jquery.wookmark.min
 //= require handlebars
 //= require ext.handlebars

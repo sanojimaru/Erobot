@@ -7,5 +7,5 @@
     remote:        data-remote
 -%>
 <span class="next">
-  <%= link_to_unless current_page.last?, raw('<i class="icon-arrow-right"></i>'), url %>
+  <%= link_to_unless current_page.last?, raw('<i class="icon-arrow-right"></i>'), url, :'data-pjax' => true %>
 </span>
