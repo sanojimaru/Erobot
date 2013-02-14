@@ -47,12 +47,14 @@ ActiveRecord::Schema.define(:version => 20130207163309) do
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
   create_table "images", :force => true do |t|
-    t.integer  "page_id",    :null => false
+    t.integer  "page_id",            :null => false
     t.string   "url"
     t.string   "thumb_url"
+    t.string   "original_url"
+    t.string   "original_thumb_url"
     t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   add_index "images", ["page_id"], :name => "index_images_on_page_id"

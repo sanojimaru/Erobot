@@ -21,7 +21,7 @@ class S3Upload
     mime_type = MIME::Types.type_for local_file
     upload_file_path = File.join prefix, base_name
 
-    AWS::S3::S3Object.store(
+    stored = AWS::S3::S3Object.store(
       upload_file_path,
       File.open(local_file),
       @bucket,
@@ -29,6 +29,6 @@ class S3Upload
       :access => :public_read
     )
 
-    "#{AWS::S3::DEFAULT_HOST}/#{upload_file_path}"
+    "http://#{AWS::S3::DEFAULT_HOST}/#{@bucket}/#{upload_file_path}"
   end
 end

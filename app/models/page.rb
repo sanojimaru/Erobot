@@ -5,5 +5,5 @@ class Page < ActiveRecord::Base
   paginates_per 4
   validates :url, presence: true
 
-  default_scope lambda{ includes(:images).where('images.id IS NOT NULL') }
+  default_scope lambda{ includes(:images).where('images.id IS NOT NULL').order('pages.created_at DESC') }
 end

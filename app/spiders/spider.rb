@@ -46,13 +46,24 @@ class Spider
             tmp_image_dir = Rails.root.join('tmp', 'images')
             FileUtils.mkdir tmp_image_dir unless File.exists?(tmp_image_dir)
 
-            filename = downloader.get param[:url], tmp_image_dir
-            s3uploader.put filename, [site.id, page.id].join('/')
-            FileUtils.rm filename
+            tmp_image_file = downloader.get param[:url], tmp_image_dir
+            uploaded_image_url = s3uploader.put tmp_image_file, [site.id, page.id].join('/')
+            FileUtils.rm tmp_image_file
+
+            tmp_thumb_image_file = downloader.get param[:thumb_url], tmp_image_dir
+            uploaded_image_thumb_url = s3uploader.put tmp_thumb_image_file, [site.id, page.id].join('/')
+            FileUtils.rm tmp_thumb_image_file
 
             next unless param[:url] =~ /\.(jpg|jpeg|gif|png)$/
 
-            Image.create! page: page, content: link.attr(:title), url: link.attr(:href), thumb_url: img.attr(:src)
+            Image.create!({
+              page: page,
+              content: link.attr(:title),
+              url: uploaded_image_url,
+              thumb_url: uploaded_image_thumb_url,
+              original_url: link.attr(:href),
+              original_thumb_url: img.attr(:src)
+            })
           rescue => e
             puts e
             next

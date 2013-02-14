@@ -4,6 +4,8 @@ class CreateImages < ActiveRecord::Migration
       t.references :page, null: false
       t.string :url
       t.string :thumb_url
+      t.string :original_url
+      t.string :original_thumb_url
       t.text :content
 
       t.timestamps
