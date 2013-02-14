@@ -1,1 +1,1 @@
-$(document).pjax('a[data-pjax]', '#main_pjax_container')
+#$(document).pjax('a[data-pjax]', '#main_pjax_container')
