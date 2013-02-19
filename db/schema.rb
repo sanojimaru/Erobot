@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214174122) do
+ActiveRecord::Schema.define(:version => 20130207163309) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -46,52 +46,18 @@ ActiveRecord::Schema.define(:version => 20130214174122) do
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
-  create_table "dat2ches", :force => true do |t|
-    t.string   "title"
+  create_table "images", :force => true do |t|
     t.string   "url"
-    t.text     "dat"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "dat2ches", ["url"], :name => "index_dat2ches_on_url", :unique => true
-
-  create_table "image2ches", :force => true do |t|
-    t.integer  "dat2ch_id"
-    t.string   "url"
+    t.string   "thumb_url"
     t.string   "original_url"
+    t.text     "text_title"
+    t.text     "text_content"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
 
-  add_index "image2ches", ["dat2ch_id"], :name => "index_image2ches_on_dat2ch_id"
-  add_index "image2ches", ["original_url"], :name => "index_image2ches_on_original_url", :unique => true
-  add_index "image2ches", ["url"], :name => "index_image2ches_on_url", :unique => true
-
-  create_table "images", :force => true do |t|
-    t.integer  "page_id",            :null => false
-    t.string   "url"
-    t.string   "thumb_url"
-    t.string   "original_url"
-    t.string   "original_thumb_url"
-    t.text     "content"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-  end
-
-  add_index "images", ["page_id"], :name => "index_images_on_page_id"
+  add_index "images", ["thumb_url"], :name => "index_images_on_thumb_url", :unique => true
   add_index "images", ["url"], :name => "index_images_on_url", :unique => true
-
-  create_table "pages", :force => true do |t|
-    t.integer  "site_id",    :null => false
-    t.string   "url"
-    t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "pages", ["site_id"], :name => "index_pages_on_site_id"
-  add_index "pages", ["url"], :name => "index_pages_on_url", :unique => true
 
   create_table "sites", :force => true do |t|
     t.string   "domain"

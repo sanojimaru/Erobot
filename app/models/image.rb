@@ -1,6 +1,6 @@
 class Image < ActiveRecord::Base
-  belongs_to :page
-  attr_accessible :page, :content, :thumb_url, :url, :original_thumb_url, :original_url
+  attr_accessible :text_title, :text_content, :url, :thumb_url, :original_url
+  paginates_per 50
 
-  default_scope lambda{ order :created_at => :desc }
+  default_scope lambda{ order 'images.created_at DESC' }
 end

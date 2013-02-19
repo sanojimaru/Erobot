@@ -41,30 +41,10 @@ body {
   }
 }
 
-#page_thumbnails {
+#image_thumbnails {
   .thumbnail {
     margin-bottom: 20px;
     background: rgba(255, 255, 255, 0.75);
-
-    .sitename {
-      margin: 0;
-      text-align: right;
-    }
-
-    h3 {
-      margin: 0 0 10px;
-      font-size: 15px;
-      line-height: 1.321;
-    }
-
-    ul {
-      margin: 0;
-
-      li {
-        margin: 0 0 5px;
-        list-style: none;
-      }
-    }
   }
 }
 
