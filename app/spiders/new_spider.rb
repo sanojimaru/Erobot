@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'mime/types'
 require 'aws/s3'
-require 'rmagick'
+require 'RMagick'
 
 ACCESS_KEY_ID = "AKIAJ4BHY5SLD63HC4BQ"
 SECRET_ACCESS_KEY = "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"
