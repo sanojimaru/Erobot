@@ -20,7 +20,7 @@ gem 'activeadmin'
 gem 'kaminari'
 gem 'bootstrap-sass-rails'
 gem 'pjax_rails'
-gem 'rmagick'
+gem 'rmagick', require: 'RMagick'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
