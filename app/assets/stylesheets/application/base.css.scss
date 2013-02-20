@@ -1,8 +1,18 @@
+$gridColumnWidth: 75px;
+$gridGutterWidth: 5px;
+$gridColumnWidth1200: 95px;
+$gridGutterWidth1200: 5px;
+$gridColumnWidth768: 57px;
+$gridGutterWidth768: 5px;
+
 @import 'twitter/bootstrap';
 @import 'twitter/bootstrap/responsive';
 
+
 body {
+  position: relative;
   background: #E56E94;
+  padding-top: 40px;
 }
 
 .pagination {
@@ -14,7 +24,7 @@ body {
     a {
       display: block;
       padding: 20px;
-      background: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.25);
     }
   }
 
@@ -28,7 +38,7 @@ body {
 }
 
 #container {
-  padding-top: 60px;
+  margin-top: 20px;
 }
 
 #topbar {
@@ -37,14 +47,23 @@ body {
   }
 
   .navbar-inner {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.25);
   }
 }
 
 #image_thumbnails {
   .thumbnail {
     margin-bottom: 20px;
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    text-align: center;
   }
 }
 
+
+/* responsive */
+@media (max-width: 979px) {
+  body {
+    padding-top: 0;
+  }
+}
