@@ -2,6 +2,8 @@
 require 'mime/types'
 require 'aws/s3'
 require 'RMagick'
+require 'uuidtools'
+require 'sanitize'
 
 ACCESS_KEY_ID = "AKIAJ4BHY5SLD63HC4BQ"
 SECRET_ACCESS_KEY = "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"
@@ -35,26 +37,27 @@ class NewSpider
           tmp_image_dir = Rails.root.join('tmp', 'images')
           FileUtils.mkdir tmp_image_dir unless File.exists?(tmp_image_dir)
 
-          filename = File.basename original_image_url
-          tmp_image_path = File.join(tmp_image_dir, filename)
-
-          thumb_filename = "thumb_#{File.basename original_image_url}"
-          tmp_thumb_path = File.join(tmp_image_dir, thumb_filename)
-
+          original_filename = File.basename original_image_url
+          original_ext = File.extname original_filename
+          tmp_image_path = File.join(tmp_image_dir, original_filename)
+          tmp_thumb_path = File.join(tmp_image_dir, "thumb_#{original_filename}")
           download original_image_url, tmp_image_path
 
           image = Magick::Image.read(tmp_image_path).first
           image.resize_to_fill! 640, 640
           image.write(tmp_thumb_path){|i| i.quality = 60}
 
+          filename = "#{UUIDTools::UUID.random_create}#{original_ext}"
+          thumb_filename = "thumb_#{filename}"
           uploaded_image_url = upload tmp_image_path, File.join(site.id.to_s, filename)
           uploaded_thumb_url = upload tmp_thumb_path, File.join(site.id.to_s, thumb_filename)
+          FileUtils.rm tmp_image_path
           FileUtils.rm tmp_thumb_path
 
           begin
             Image.create!({
-              text_title: page_title,
-              text_content: page_content,
+              text_title: Sanitize.clean(page_title),
+              text_content: Sanitize.clean(page_content),
               url: uploaded_image_url,
               thumb_url: uploaded_thumb_url,
               original_url: original_image_url,

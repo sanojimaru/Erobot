@@ -21,6 +21,8 @@ gem 'kaminari'
 gem 'bootstrap-sass-rails'
 gem 'pjax_rails'
 gem 'rmagick', require: 'RMagick'
+gem 'uuidtools'
+gem 'sanitize'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
