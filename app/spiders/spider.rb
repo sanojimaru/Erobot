@@ -29,7 +29,7 @@ class Spider
         page_content = page.at('body').text
         puts page_title
 
-        page.css(site.img_css).each do |img|
+        page.css(site.img_css).reverse_each do |img|
           original_image_url = img.parent.attr :href
           puts original_image_url
           next unless original_image_url =~ /\.(jpg|jpeg|gif|png)$/
@@ -56,8 +56,7 @@ class Spider
 
           begin
             Image.create!({
-              text_title: Sanitize.clean(page_title),
-              text_content: Sanitize.clean(page_content),
+              title: Sanitize.clean(page_title),
               url: uploaded_image_url,
               thumb_url: uploaded_thumb_url,
               original_url: original_image_url,

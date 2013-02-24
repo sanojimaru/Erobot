@@ -50,14 +50,12 @@ ActiveRecord::Schema.define(:version => 20130207163309) do
     t.string   "url"
     t.string   "thumb_url"
     t.string   "original_url"
-    t.text     "text_title"
-    t.text     "text_content"
+    t.text     "title"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
 
-  add_index "images", ["thumb_url"], :name => "index_images_on_thumb_url", :unique => true
-  add_index "images", ["url"], :name => "index_images_on_url", :unique => true
+  add_index "images", ["original_url"], :name => "index_images_on_original_url", :unique => true
 
   create_table "sites", :force => true do |t|
     t.string   "domain"
