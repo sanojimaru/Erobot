@@ -23,6 +23,7 @@ gem 'pjax_rails'
 gem 'rmagick', require: 'RMagick'
 gem 'uuidtools'
 gem 'sanitize'
+gem 'igo-ruby'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
