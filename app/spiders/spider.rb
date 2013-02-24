@@ -25,7 +25,7 @@ class Spider
       urls.each do |url|
         body = get url
         page = Nokogiri::HTML body, nil, 'UTF-8'
-        page_title = page.at('title').text
+        page_title = Sanitize.clean(page.at('title').text).gsub(site.name, '')
         page_content = page.at('body').text
         puts page_title
 
@@ -56,7 +56,7 @@ class Spider
 
           begin
             Image.create!({
-              title: Sanitize.clean(page_title),
+              title: page_title,
               url: uploaded_image_url,
               thumb_url: uploaded_thumb_url,
               original_url: original_image_url,

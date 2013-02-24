@@ -12,7 +12,9 @@ class Image < ActiveRecord::Base
 
     t = tagger.parse "#{self.title}"
     t.each{|m|
-      puts "#{m.surface} #{m.feature}" if m.feature =~ /固有名詞/
+      if m.feature =~ /固有名詞/ && m.surface.length > 2
+        puts "#{m.surface} #{m.feature}"
+      end
     }
   end
 end

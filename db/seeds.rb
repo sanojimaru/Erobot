@@ -11,7 +11,7 @@ AdminUser.find_or_create_by_email! 'sanojimaru@gmail.com', password: '1qazxsw23e
 
 ero_sites = [
   {
-    name: 'ピンクちゃんねる',
+    name: 'ぴんくちゃんねる～エロ画像・アダルト画像まとめ～',
     domain: 'http://www.pinkchannnel.com/',
     rss: 'http://www.pinkchannnel.com/index.rdf',
     title_css: 'body #main .article-header h2',
@@ -19,14 +19,14 @@ ero_sites = [
 
   },
   {
-    name: "ぼっき速報",
+    name: "ぼっき速報三次エロ画像とエロ動画",
     domain: 'http://bokkisokuho.ldblog.jp/',
     rss: 'http://bokkisokuho.ldblog.jp/index.rdf',
     title_css: 'body #main .article-header h2',
     img_css: 'body #main .article-body-inner a > img.pict',
   },
   {
-    name: "みんくチャンネル",
+    name: "みんくちゃんねる",
     domain: 'http://minkch.com/',
     rss: 'http://minkch.com/index.rdf',
     title_css: 'body #main .article-header h2',
@@ -34,14 +34,14 @@ ero_sites = [
     img_css: 'body #main .article-body-inner a > img.pict',
   },
   {
-    name: "おっき速報",
+    name: "エロ画像まとめ　おっき速報",
     domain: 'http://okkisokuho.blog107.fc2.com/',
     rss: 'http://okkisokuho.blog107.fc2.com/?xml',
     title_css: 'body .main_cont > .entry_box > h2.entry_title',
     img_css: 'body .main_cont > .entry_box > .entry_text > a > img',
   },
   {
-    name: 'フェチ速',
+    name: 'フェチ速～2ch・2ちゃんねるのエロ画像、アダルト画像まとめ～',
     domain: 'http://hitorihnoyoru.blog104.fc2.com/',
     rss: 'http://hitorihnoyoru.blog104.fc2.com/?xml',
     title_css: 'body .main_cont > .entry_box > h2.entry_title',
