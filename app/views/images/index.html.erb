@@ -1,0 +1,13 @@
+<div id="image_thumbnails" class="thumbnails">
+  <% @images.each do |image| %>
+    <div class="span3">
+      <div class="thumbnail">
+        <%= link_to image_tag(image.thumb_url), image.url %>
+        <div class="caption">
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= paginate @images %>
