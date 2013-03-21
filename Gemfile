@@ -24,6 +24,7 @@ gem 'rmagick', require: 'RMagick'
 gem 'uuidtools'
 gem 'sanitize'
 gem 'igo-ruby'
+gem 'log4r'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

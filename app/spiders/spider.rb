@@ -18,21 +18,30 @@ class Spider
   def self.run
     sites = Site.all
     sites.each do |site|
-      rss = get site.rss
-      doc = Nokogiri::XML rss, nil, 'UTF-8'
+      Rails.logger.debug "Start: #{site.name}"
+
+      doc = Nokogiri::XML get(site.rss), nil, 'UTF-8'
       urls = doc.xpath('//rdf:Seq/rdf:li').map{|li| li.attr(:'rdf:resource') }
 
-      urls.each do |url|
-        body = get url
-        page = Nokogiri::HTML body, nil, 'UTF-8'
-        page_title = Sanitize.clean(page.at('title').text).gsub(site.name, '')
-        page_content = page.at('body').text
-        puts page_title
+      unless urls.size > 0
+        Rails.logger.error "RSS link not found: #{site.name}"
+        next
+      end
 
-        page.css(site.img_css).reverse_each do |img|
-          original_image_url = img.parent.attr :href
-          puts original_image_url
-          next unless original_image_url =~ /\.(jpg|jpeg|gif|png)$/
+      urls.each do |url|
+        page = Nokogiri::HTML get(url), nil, 'UTF-8'
+        page_title = Sanitize.clean(page.at('title').text).gsub(site.name, '')
+        images = page.css(site.img_css).reverse.map{|img| img.parent.attr(:href)}.select do |url|
+          (url =~ /\.(jpg|jpeg|gif|png)$/) && !(url =~ /www.amazon.co.jp/)
+        end
+
+        if images.nil? || images.size == 0
+          Rails.logger.error "Page images not found: #{page_title}(#{url})"
+          next
+        end
+
+        images.each do |original_image_url|
+          next if Image.exists?(:original_url => original_image_url)
 
           tmp_image_dir = Rails.root.join('tmp', 'images')
           FileUtils.mkdir tmp_image_dir unless File.exists?(tmp_image_dir)
@@ -41,6 +50,8 @@ class Spider
           original_ext = File.extname original_filename
           tmp_image_path = File.join(tmp_image_dir, original_filename)
           tmp_thumb_path = File.join(tmp_image_dir, "thumb_#{original_filename}")
+
+          Rails.logger.debug "Downlonad #{original_image_url} to #{tmp_image_path}"
           download original_image_url, tmp_image_path
 
           image = Magick::Image.read(tmp_image_path).first
@@ -62,14 +73,21 @@ class Spider
               original_url: original_image_url,
             })
           rescue => e
-            puts e
+            Rails.logger.error e.message
           end
+
+          break if Rails.env == 'development'
         end
+
+        break if Rails.env == 'development'
       end
     end
   end
 
-  def self.get url, encode_utf8 = true
+  def self.fetch url, limit = 10
+    # You should choose better exception.
+    raise ArgumentError, 'HTTP redirect too deep' if limit == 0
+
     uri = URI.parse url
     http_options = {
       'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7',
@@ -77,13 +95,21 @@ class Spider
     }
 
     http = Net::HTTP.start(uri.host, 80)
-    response = http.get uri.path, http_options
+    response = http.get "#{uri.path}?#{uri.query}", http_options
+    case response
+    when Net::HTTPRedirection then fetch(response['location'], limit - 1)
+    else response
+    end
+  end
+
+  def self.get url, encode_utf8 = true
+    body = fetch(url).body
 
     if encode_utf8
-      detection = CharlockHolmes::EncodingDetector.detect response.body
-      response.body.encode('UTF-16BE', detection[:encoding], undef: :replace, invalid: :replace).encode('UTF-8')
+      detection = CharlockHolmes::EncodingDetector.detect body
+      body.encode('UTF-16BE', detection[:encoding], undef: :replace, invalid: :replace).encode('UTF-8')
     else
-      response.body
+      body
     end
   end
 

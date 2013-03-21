@@ -102,6 +102,7 @@ GEM
       activesupport (>= 3.0.0)
     kgio (2.8.0)
     libv8 (3.11.8.13)
+    log4r (1.1.10)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -210,6 +211,7 @@ DEPENDENCIES
   igo-ruby
   jquery-rails
   kaminari
+  log4r
   mysql2
   nokogiri
   pjax_rails
