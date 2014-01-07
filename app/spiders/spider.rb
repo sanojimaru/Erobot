@@ -5,8 +5,8 @@ require 'RMagick'
 require 'uuidtools'
 require 'sanitize'
 
-ACCESS_KEY_ID = "AKIAJ4BHY5SLD63HC4BQ"
-SECRET_ACCESS_KEY = "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"
+ACCESS_KEY_ID = "ACCESS_KEY_ID"
+SECRET_ACCESS_KEY = "SECRET_ACCESS_KEY"
 AWS_S3_BUCKET = Rails.env == 'production' ? "erobot-production" : "erobot-development"
 AWS::S3::DEFAULT_HOST.replace "s3-ap-northeast-1.amazonaws.com"
 AWS::S3::Base.establish_connection!(
